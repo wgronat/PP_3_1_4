@@ -16,7 +16,6 @@ public class UsersController {
 
     private final UserService userService;
 
-
     public UsersController(UserService userService) {
         this.userService = userService;
     }
@@ -63,4 +62,5 @@ public class UsersController {
         model.addAttribute("user", user);
         return "user";
     }
+
 }
