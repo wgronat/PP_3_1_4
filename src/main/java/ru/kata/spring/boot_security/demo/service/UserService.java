@@ -13,9 +13,7 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,16 +35,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public Boolean saveUser(User user) {
-        User userDB = userRepository.findUserByName(user.getName());
-        if (userDB != null) {
-            return false;
+    public void saveUser(User user) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
         }
-        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
-    }
 
     public User findUserByID(long id) {
         return userRepository.findById(id).orElse(null);
@@ -56,18 +48,18 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public User findUserByName(String userName) {
-        return userRepository.findUserByName(userName);
+    public User findUserByEmail(String userEmail) {
+        return userRepository.findUserByEmail(userEmail);
     }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByName(username);
-        if (username == null) {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmail(email);
+        if (email == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
 
