@@ -3,8 +3,8 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -33,13 +33,11 @@ public class AdminRestController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUserByID(@PathVariable("id") Long id) {
+    public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {
         User user = userService.findUserByID(id);
-        if (user == null) {
-            return ResponseEntity.ok().body(HttpStatus.NOT_FOUND);
-        } else {
-            return ResponseEntity.ok(user);
-        }
+        return user != null
+                ? new ResponseEntity<>(user, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/users")
@@ -53,13 +51,13 @@ public class AdminRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable("id") Long id) {
         User user = userService.findUserByID(id);
         if (user == null) {
-            return ResponseEntity.ok().body(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             userService.delete(id);
-            return ResponseEntity.ok().body(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
@@ -69,7 +67,7 @@ public class AdminRestController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> userInfo(Principal principal) {
+    public ResponseEntity<User> getUserInfo(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
