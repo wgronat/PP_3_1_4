@@ -4,9 +4,8 @@ $(async function() {
 
 async function userInfo() {
     fetch('http://localhost:8080/api/user')
-        .then(res => {
-            res.json().then(
-                data => {
+        .then(res => res.json())
+        .then(data => {
                     let tb = "";
                     tb += "<tr>";
                     tb += "<td>" + data.id + "</td>";
@@ -19,7 +18,5 @@ async function userInfo() {
                     document.getElementById("userInfoEmail").innerHTML = data.email;
                     document.getElementById("userInfoRoles").innerHTML = data.roles.map(role => ' ' + role.name).join("");
                     document.getElementById("userInfo").innerHTML = tb;
-                }
-            )
         })
 }

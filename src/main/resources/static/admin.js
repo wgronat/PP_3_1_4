@@ -30,7 +30,6 @@ async function allUsers() {
 
                         editModal()
                         deleteModal()
-                        newUser()
                         document.getElementById("tbAllUsers").innerHTML = tb;
                     }
                 }
@@ -53,24 +52,6 @@ async function editModal() {
                 $('.editForm #editPassword').val(user.password);
                 $('.editForm #editRoles').val(user.roles);
 
-             fetch('http://localhost:8080/api/roles')
-                .then(res => res.json())
-                .then(roles => {
-                    roles.forEach(role => {
-                        let selectedRole = false;
-                        for (let i = 0; i < user.roles.length; i++) {
-                            if (user.roles[i].name === role.name) {
-                                selectedRole = true;
-                                break;
-                            }
-                        }
-                        let el = document.createElement("option");
-                        el.text = role.name.substring(5);
-                        el.value = role.id;
-                        if (selectedRole) el.selected = true;
-                        $('#editRoles')[0].appendChild(el);
-                    })
-                })
             });
             $('.editForm #modalEdit').modal();
         })
@@ -161,18 +142,7 @@ async function deleteUser() {
         }
     })
 }
-async function newUser() {
-    await fetch('http://localhost:8080/api/roles')
-        .then(res => res.json())
-        .then(roles => {
-            roles.forEach(role => {
-                let el = document.createElement("option");
-                el.text = role.name.substring(5);
-                el.value = role.id;
-                $('#newRoles')[0].appendChild(el);
-            })
-        })
-}
+
 async function addUser(){
     const form = document.querySelector('.addUser')
     form.addEventListener('submit', async (event) => {
@@ -214,3 +184,4 @@ async function addUser(){
         }
     })
 }
+

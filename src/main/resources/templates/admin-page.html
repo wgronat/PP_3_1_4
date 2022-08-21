@@ -31,26 +31,23 @@
         </ul>
     </div>
 </nav>
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
+        <div class="col-sm-2 bg-white min-vh-100">
+            <br/>
+            <br/>
+            <br/>
+            <div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist"
+                 aria-orientation="vertical">
+                <a class="nav-link active" data-toggle="tab" href="#adminPanel">Admin</a>
+                <a class="nav-link" data-toggle="tab" href="#adminInfo">User</a>
+            </div>
+        </div>
 
-                <div class="col-sm-2 bg-white min-vh-100">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist"
-                         aria-orientation="vertical">
-                        <a class="nav-link active" href="/admin"
-                           aria-controls="v-pills-home" aria-selected="true">Admin</a>
-                        <a class="nav-link" href="/user"
-                           role="tab"
-                           aria-controls="v-pills-profile" aria-selected="false">User</a>
-                    </div>
-                </div>
-
-                <div class="col-sm-10 bg-light" style="background-color: #F7F7F7; height:100vh;">
+        <div class="col-10 bg-light">
+            <div class="tab-content" style="padding-top: 15px; height: 100vh">
+                <div class="tab-pane fade show active" id="adminPanel">
                     <br/>
                     <br/>
                     <br/>
@@ -66,21 +63,15 @@
                             <a class="nav-link" data-toggle="tab" href="#create_user">New User</a>
                         </li>
                     </ul>
-
                     <div class="tab-content">
 
-                        <div class="tab-pane container-fluid active" id="users_table">
-                            <div class="row">
-                                <div class="col border bg-light">
-                                    <p><h5>All users</h5>
-                                </div>
-                                <div class="w-100"></div>
-                                <div class="col border bg-white">
-                                    <br/>
+                        <!-- таблица юзеров-->
 
-                                    <!-- table id-->
-
-                                    <table id="tableId" class="table table-striped">
+                        <div class="tab-pane fade show active" id="users_table">
+                            <div class="card">
+                                <h5 class="card-header">All users</h5>
+                                <div class="card-body text-center">
+                                    <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -93,200 +84,8 @@
                                             <th scope="col">Delete</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="tbAllUsers"></tbody>
-
-                                        <!-- модальное окно редактирования-->
-
-                                        <div class="editForm">
-                                            <form class="editUser">
-                                                <div id="modalEdit" class="modal">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Edit user</h5>
-                                                                <button type="button" class="close"
-                                                                        data-dismiss="modal">
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group row justify-content-center text-center">
-
-                                                                    <strong><label
-                                                                            for="editId">ID: </label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editId"
-                                                                           name="id" readonly
-                                                                           type="number">
-                                                                    <br/>
-
-                                                                    <strong><label for="editFirstName">First
-                                                                        name</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editFirstName"
-                                                                           maxlength="50"
-                                                                           minlength="3" name="firstName"
-                                                                           required
-
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong><label for="editLastName">Last
-                                                                        name</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editLastName"
-                                                                           maxlength="50"
-                                                                           minlength="3" name="lastName"
-
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong><label
-                                                                            for="editAge">Age</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editAge"
-                                                                           maxlength="3" minlength="1"
-                                                                           name="age"
-
-                                                                           type="number">
-                                                                    <br/>
-
-                                                                    <strong><label
-                                                                            for="editEmail">Email</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editEmail"
-                                                                           maxlength="50" minlength="3"
-                                                                           name="email"
-
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong><label
-                                                                            for="editPassword">Password</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="editPassword"
-                                                                           name="password"
-                                                                           type="password">
-                                                                    <br/>
-
-                                                                    <strong> <label
-                                                                            for="editRoles">Role</label></strong>
-                                                                    <select class="form-select form-control"
-                                                                            aria-label="multiple select example"
-                                                                            id="editRoles"
-                                                                            name="roles" size="2" multiple="multiple">
-                                                                        <option value="1">ADMIN</option>
-                                                                        <option value="2">USER</option>
-                                                                    </select>
-
-                                                                    <div class="modal-footer float-sm-right">
-                                                                        <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-dismiss="modal">Close
-                                                                        </button>
-
-                                                                        <button type="submit"
-                                                                                class="btn btn-primary">Edit
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <!-- модальное окно удаления юзера-->
-                                        <div class="deleteForm">
-                                            <form class="deleteUser">
-                                                <div id="modalDelete" class="modal">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Delete user</h5>
-                                                                <button type="button" class="close"
-                                                                        data-dismiss="modal">
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group row justify-content-center text-center">
-
-                                                                    <strong><label
-                                                                            for="deleteId">ID: </label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="deleteId"
-                                                                           name="id" readonly
-                                                                           type="number">
-                                                                    <br/>
-
-                                                                    <strong><label for="deleteFirstName">First
-                                                                        name</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="deleteFirstName"
-                                                                           maxlength="50"
-                                                                           minlength="3"
-                                                                           name="firstName" readonly
-                                                                           required
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong><label for="deleteLastName">Last
-                                                                        name</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="deleteLastName"
-                                                                           maxlength="50"
-                                                                           minlength="3"
-                                                                           name="lastName" readonly
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong><label
-                                                                            for="deleteAge">Age</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="deleteAge"
-                                                                           maxlength="3"
-                                                                           minlength="1"
-                                                                           name="age" readonly
-                                                                           type="number">
-                                                                    <br/>
-
-                                                                    <strong><label
-                                                                            for="deleteEmail">Email</label></strong>
-                                                                    <br/>
-                                                                    <input class="form-control" id="deleteEmail"
-                                                                           maxlength="50"
-                                                                           minlength="3"
-                                                                           name="email" readonly
-                                                                           type="text">
-                                                                    <br/>
-
-                                                                    <strong> <label
-                                                                            for="deleteRoles">Role</label></strong>
-                                                                    <select class="form-select form-control"
-                                                                            aria-label="multiple select example"
-                                                                            id="deleteRoles"
-                                                                            name="roles" size="2" multiple="multiple">
-                                                                        <option value="1">ADMIN</option>
-                                                                        <option value="2">USER</option>
-                                                                    </select>
-                                                                    <div class="modal-footer">
-
-                                                                        <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-dismiss="modal">Close
-                                                                        </button>
-
-                                                                        <input class="btn btn-danger" type="submit"
-                                                                               value="delete"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        <tbody id="tbAllUsers">
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -294,7 +93,7 @@
 
                         <!-- создание нового юзера-->
 
-                        <div class="tab-pane container-fluid fade" id="create_user">
+                        <div class="tab-pane fade" id="create_user">
                             <div class=" form-group justify-content-center">
                                 <form class="addUser">
                                     <div class="col border bg-light">
@@ -365,12 +164,233 @@
                                 </form>
                             </div>
                         </div>
+
+                </div>
+            </div>
+                <div class="tab-pane fade" id="adminInfo">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h1>User information-page</h1>
+                    <div class="card">
+                        <h5 class="card-header">About user</h5>
+                        <div class="card-body text-center">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody id="userInfo">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<!-- модальное окно редактирования-->
+
+<div class="editForm">
+    <form class="editUser">
+        <div id="modalEdit" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit user</h5>
+                        <button type="button" class="close"
+                                data-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row justify-content-center text-center">
+
+                            <strong><label
+                                    for="editId">ID: </label></strong>
+                            <br/>
+                            <input class="form-control" id="editId"
+                                   name="id" readonly
+                                   type="number">
+                            <br/>
+
+                            <strong><label for="editFirstName">First
+                                name</label></strong>
+                            <br/>
+                            <input class="form-control" id="editFirstName"
+                                   maxlength="50"
+                                   minlength="3" name="firstName"
+                                   required
+
+                                   type="text">
+                            <br/>
+
+                            <strong><label for="editLastName">Last
+                                name</label></strong>
+                            <br/>
+                            <input class="form-control" id="editLastName"
+                                   maxlength="50"
+                                   minlength="3" name="lastName"
+
+                                   type="text">
+                            <br/>
+
+                            <strong><label
+                                    for="editAge">Age</label></strong>
+                            <br/>
+                            <input class="form-control" id="editAge"
+                                   maxlength="3" minlength="1"
+                                   name="age"
+
+                                   type="number">
+                            <br/>
+
+                            <strong><label
+                                    for="editEmail">Email</label></strong>
+                            <br/>
+                            <input class="form-control" id="editEmail"
+                                   maxlength="50" minlength="3"
+                                   name="email"
+
+                                   type="text">
+                            <br/>
+
+                            <strong><label
+                                    for="editPassword">Password</label></strong>
+                            <br/>
+                            <input class="form-control" id="editPassword"
+                                   name="password"
+                                   type="password">
+                            <br/>
+
+                            <strong> <label
+                                    for="editRoles">Role</label></strong>
+                            <select class="form-select form-control"
+                                    aria-label="multiple select example"
+                                    id="editRoles"
+                                    name="roles" size="2" multiple="multiple">
+                                <option value="1">ADMIN</option>
+                                <option value="2">USER</option>
+                            </select>
+
+                            <div class="modal-footer float-sm-right">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal">Close
+                                </button>
+
+                                <button type="submit"
+                                        class="btn btn-primary">Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- модальное окно удаления юзера-->
+<div class="deleteForm">
+    <form class="deleteUser">
+        <div id="modalDelete" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete user</h5>
+                        <button type="button" class="close"
+                                data-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row justify-content-center text-center">
+
+                            <strong><label
+                                    for="deleteId">ID: </label></strong>
+                            <br/>
+                            <input class="form-control" id="deleteId"
+                                   name="id" readonly
+                                   type="number">
+                            <br/>
+
+                            <strong><label for="deleteFirstName">First
+                                name</label></strong>
+                            <br/>
+                            <input class="form-control" id="deleteFirstName"
+                                   maxlength="50"
+                                   minlength="3"
+                                   name="firstName" readonly
+                                   required
+                                   type="text">
+                            <br/>
+
+                            <strong><label for="deleteLastName">Last
+                                name</label></strong>
+                            <br/>
+                            <input class="form-control" id="deleteLastName"
+                                   maxlength="50"
+                                   minlength="3"
+                                   name="lastName" readonly
+                                   type="text">
+                            <br/>
+
+                            <strong><label
+                                    for="deleteAge">Age</label></strong>
+                            <br/>
+                            <input class="form-control" id="deleteAge"
+                                   maxlength="3"
+                                   minlength="1"
+                                   name="age" readonly
+                                   type="number">
+                            <br/>
+
+                            <strong><label
+                                    for="deleteEmail">Email</label></strong>
+                            <br/>
+                            <input class="form-control" id="deleteEmail"
+                                   maxlength="50"
+                                   minlength="3"
+                                   name="email" readonly
+                                   type="text">
+                            <br/>
+
+                            <strong> <label
+                                    for="deleteRoles">Role</label></strong>
+                            <select class="form-select form-control"
+                                    aria-label="multiple select example"
+                                    id="deleteRoles"
+                                    name="roles" size="2" multiple="multiple">
+                                <option value="1">ADMIN</option>
+                                <option value="2">USER</option>
+                            </select>
+                            <div class="modal-footer">
+
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal">Close
+                                </button>
+
+                                <input class="btn btn-danger" type="submit"
+                                       value="delete"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script src="/userInfo.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

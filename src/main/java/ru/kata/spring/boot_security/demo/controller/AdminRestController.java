@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
 import java.util.List;
@@ -16,17 +16,17 @@ import java.util.List;
 @RequestMapping("/api")
 public class AdminRestController {
 
-    private final UserService userService;
-    private final RoleService roleService;
+    private final UserServiceImpl userServiceImpl;
+    private final RoleServiceImpl roleServiceImpl;
 
-    public AdminRestController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    public AdminRestController(UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+        List<User> users = userServiceImpl.getAllUsers();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -34,7 +34,7 @@ public class AdminRestController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {
-        User user = userService.findUserByID(id);
+        User user = userServiceImpl.findUserByID(id);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -42,33 +42,33 @@ public class AdminRestController {
 
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+        return ResponseEntity.ok(userServiceImpl.saveUser(user));
     }
 
     @PutMapping("/users")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+        return ResponseEntity.ok(userServiceImpl.saveUser(user));
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable("id") Long id) {
-        User user = userService.findUserByID(id);
+        User user = userServiceImpl.findUserByID(id);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            userService.delete(id);
+            userServiceImpl.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
+        return new ResponseEntity<>(roleServiceImpl.getAllRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/user")
     public ResponseEntity<User> getUserInfo(Principal principal) {
-        User user = userService.findUserByEmail(principal.getName());
+        User user = userServiceImpl.findUserByEmail(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
