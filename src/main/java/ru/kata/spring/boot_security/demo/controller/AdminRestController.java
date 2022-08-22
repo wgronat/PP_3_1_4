@@ -47,7 +47,8 @@ public class AdminRestController {
 
     @PutMapping("/users")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        return ResponseEntity.ok(userServiceImpl.saveUser(user));
+        userServiceImpl.updateUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")

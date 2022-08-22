@@ -26,25 +26,39 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Override
     @Transactional
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        if (!user.getPassword().equals(userRepository.findUserByEmail(user.getEmail()).getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        userRepository.save(user);
+    }
+
+    @Override
     public User findUserByID(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
     @Transactional
     public void delete(long id) {
         userRepository.deleteById(id);
     }
 
+    @Override
     public User findUserByEmail(String userEmail) {
         return userRepository.findUserByEmail(userEmail);
     }
